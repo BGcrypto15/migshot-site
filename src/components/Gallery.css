@@ -1,0 +1,87 @@
+.gallery__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--space-md);
+}
+
+.gallery h2 {
+  font-size: var(--text-3xl);
+}
+
+.gallery__controls {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.gallery__controls button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  font-size: var(--text-xl);
+  color: var(--color-text);
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.gallery__controls button:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.gallery__track {
+  display: flex;
+  justify-content: center;
+  justify-content: safe center;
+  gap: var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 var(--space-md) var(--space-sm);
+  margin: 0 calc(var(--space-md) * -1);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) transparent;
+}
+
+.gallery__card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 320px;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  scroll-snap-align: start;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.gallery__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Signature: clear-coat light sweep on hover, like light hitting fresh paint */
+.gallery__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.7s var(--ease-standard);
+  pointer-events: none;
+}
+
+.gallery__card:hover::after {
+  transform: translateX(120%);
+}
+
+@media (max-width: 600px) {
+  .gallery__card {
+    width: 240px;
+  }
+}
