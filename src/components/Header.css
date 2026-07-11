@@ -1,0 +1,127 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 11, 13, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Desktop: three-part grid so the nav links are truly centered in the bar,
+   with the logo pinned left and the call button pinned right. */
+.header__inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-lg);
+  height: 84px;
+}
+
+.header__brand {
+  grid-column: 1;
+}
+
+.header__brand img {
+  height: 56px;
+  width: auto;
+  border-radius: var(--radius-sm);
+}
+
+.header__nav {
+  grid-column: 2;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header__nav a {
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.header__nav a:hover {
+  color: var(--color-accent);
+}
+
+.header__call {
+  background: var(--gradient-flame);
+  color: #fff !important;
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.header__call--desktop {
+  grid-column: 3;
+  justify-self: end;
+}
+
+/* The mobile call button lives inside the dropdown nav; hide it on desktop
+   since the pinned-right button above already covers that. */
+.header__call--mobile {
+  display: none;
+}
+
+.header__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  grid-column: 3;
+  justify-self: end;
+}
+
+.header__toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--color-text);
+}
+
+@media (max-width: 860px) {
+  .header__inner {
+    grid-template-columns: auto auto;
+    height: 72px;
+  }
+
+  .header__brand img {
+    height: 44px;
+  }
+
+  .header__call--desktop {
+    display: none;
+  }
+
+  .header__call--mobile {
+    display: inline-block;
+    margin-top: var(--space-xs);
+  }
+
+  .header__nav {
+    grid-column: 1 / -1;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+    background: var(--color-bg);
+    padding: var(--space-lg) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+    transform: translateY(-150%);
+    transition: transform var(--duration-base) var(--ease-standard);
+  }
+
+  .header__nav--open {
+    transform: translateY(0);
+  }
+
+  .header__toggle {
+    display: flex;
+  }
+}
