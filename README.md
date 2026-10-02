@@ -40,13 +40,19 @@ Google), add the filename to `CAPTIONS` at the top of
 
 ## Reviews
 
-Real reviews only. `REVIEWS` in `src/components/Reviews.jsx` is empty on
-purpose. While it's empty, the section asks customers to leave a Google
-review instead of showing fake cards.
+Real Google reviews live in `src/data/reviews.js`, copied word for word.
+The "5.0 from 6 Google reviews" line in the hero and the Reviews section is
+worked out from that list, so keep the list in sync with Google. When a new
+review comes in (good or bad), add it there. Never write or edit a review.
 
-- Copy real Google reviews into the `REVIEWS` array, or
-- Replace the `<ul className="reviews__track">` block with an Elfsight or
-  Google reviews widget embed.
+Each review has a "See it on Google" link (the review's Share > Copy link
+URL from Google Maps) so anyone can check it's real. Names show as first
+name and last initial. Reviews written in Spanish show the original words
+with the English underneath.
+
+If the list is ever emptied, the section switches to a "leave us a review"
+panel. A Featurable or Elfsight widget could replace the
+`<ul className="reviews__track">` block later.
 
 When you have the direct "write a review" link from Google Business Profile,
 put it in `googleListingUrl` in `src/data/shop.js`.

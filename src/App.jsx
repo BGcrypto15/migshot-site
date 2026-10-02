@@ -19,12 +19,11 @@ function App() {
         <Hero />
         <Divider />
         <Services />
+        <Reviews />
         <Process />
         <Gallery />
         <Divider />
         <About />
-        <Divider />
-        <Reviews />
         <Contact />
       </main>
       <Footer />

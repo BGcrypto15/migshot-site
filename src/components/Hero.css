@@ -29,7 +29,7 @@
 /* Big logo, sitting right under the header. On short laptop screens it
    shrinks just enough that the buttons still show without scrolling. */
 .hero__logo {
-  width: min(760px, 100%, calc((100svh - var(--header-h) - 330px) * 1.345));
+  width: min(760px, 100%, calc((100svh - var(--header-h) - 400px) * 1.345));
   min-width: min(100%, 420px);
   height: auto;
   margin-bottom: var(--space-sm);
@@ -66,6 +66,33 @@
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
+}
+
+.hero__rating {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem 0.5rem;
+  min-height: var(--tap);
+  margin: -0.4rem 0 0.4rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.hero__rating strong {
+  color: var(--color-text);
+}
+
+.hero__rating-stars {
+  color: #fbbc04;
+  font-size: var(--text-lg);
+  letter-spacing: 2px;
+}
+
+.hero__rating:hover span:last-child {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .hero__facts {

@@ -2,9 +2,11 @@ import "./Hero.css";
 import logoSrcSet from "../assets/hero/migshot-logo-truck.png?w=480;845&format=webp&quality=72&as=srcset";
 import logoSrc from "../assets/hero/migshot-logo-truck.png?w=845&format=webp&quality=72";
 import { SHOP } from "../data/shop";
+import { reviewSummary } from "../data/reviews";
 import { PhoneIcon, TextIcon, QuoteIcon, PinIcon } from "./icons/Icons";
 
 function Hero() {
+  const rating = reviewSummary();
   return (
     <section id="top" className="hero">
       <div className="hero__glow" aria-hidden="true" />
@@ -25,6 +27,17 @@ function Hero() {
           Auto Body, Collision &amp; Custom Paint in Philadelphia
         </h1>
         <p className="hero__tagline">We make your paint ideas into a reality.</p>
+
+        {rating && (
+          <a href="#reviews" className="hero__rating">
+            <span className="hero__rating-stars" aria-hidden="true">
+              {"★".repeat(Math.round(Number(rating.average)))}
+            </span>
+            <span>
+              <strong>{rating.average}</strong> from {rating.count} Google reviews
+            </span>
+          </a>
+        )}
 
         <p className="hero__sub">
           Dents, scrapes, cracked bumpers, curb rash, foggy headlights, or a
