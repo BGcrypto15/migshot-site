@@ -1,46 +1,58 @@
 import "./Services.css";
 
-const SERVICES = [
+export const SERVICES = [
   {
     title: "Auto Body & Paint",
-    desc: "Full color matching and refinishing, from a single panel to a complete respray.",
+    desc: "Dents, scratches and collision damage fixed and painted to match. One panel, a full respray, or the custom color you've been thinking about for years.",
   },
   {
     title: "Bumper Repair",
-    desc: "Cracked, scraped, or hanging off, repaired and repainted to match.",
+    desc: "Cracked, scraped, or hanging off. Repaired and painted to match the rest of the car.",
   },
   {
     title: "Alloy Wheel Repair",
-    desc: "Curb rash, bends, and corrosion fixed without replacing the wheel.",
+    desc: "Curb rash, scuffs and corrosion cleaned up and refinished.",
   },
   {
     title: "Headlight Restoration",
-    desc: "Foggy, yellowed lenses brought back to clear.",
+    desc: "Yellow, foggy lenses brought back to clear so you can actually see at night.",
   },
   {
     title: "Insurance Work",
-    desc: "We work directly with your insurance company on the claim.",
+    desc: "Got a claim? Bring your claim info and we'll work with your insurance company on the repair.",
   },
   {
     title: "Towing",
-    desc: "Need it brought in? We can arrange towing to the shop.",
+    desc: "Car not driveable? Call us and we'll set up a tow to the shop.",
   },
 ];
+
+// Tapping "Get a quote" on a card jumps to the form with that service picked.
+function pickService(title) {
+  window.dispatchEvent(new CustomEvent("migshot:service", { detail: title }));
+}
 
 function Services() {
   return (
     <section id="services" className="services section">
       <div className="container">
-        <p className="eyebrow glow-text">What we do</p>
+        <p className="eyebrow glow-text">What we fix</p>
         <h2>Services</h2>
-        <div className="services__grid">
+        <ul className="services__grid">
           {SERVICES.map((s) => (
-            <div className="service-card" key={s.title}>
+            <li className="service-card" key={s.title}>
               <h3>{s.title}</h3>
               <p>{s.desc}</p>
-            </div>
+              <a
+                href="#contact"
+                className="service-card__link"
+                onClick={() => pickService(s.title)}
+              >
+                Get a quote<span className="visually-hidden"> for {s.title}</span>
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

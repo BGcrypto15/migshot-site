@@ -1,8 +1,8 @@
-# Migshot Auto Solutions — Website
+# Migshot Auto Solutions website
 
-Built with React + Vite. Static site, no database or backend needed.
+React + Vite, plain CSS. Static site, no database.
 
-## Running it locally
+## Run it locally
 
 ```
 npm install
@@ -11,47 +11,53 @@ npm run dev
 
 Opens at http://localhost:5173
 
-## How to update things yourself
+## Where things live
 
-### Add or remove gallery photos
-Drop image files (.jpg, .jpeg, .png, .webp) directly into:
+| What | File |
+| --- | --- |
+| Phone, address, hours, Instagram, form endpoint | `src/data/shop.js` |
+| Services list | `src/components/Services.jsx` |
+| How it works steps | `src/components/Process.jsx` |
+| Miguel's story | `src/components/About.jsx` |
+| Reviews | `src/components/Reviews.jsx` |
+| Page title, Google description, share preview, business schema | `index.html` |
 
-```
-src/assets/gallery/
-```
+Change the phone or hours in `src/data/shop.js` and the whole site updates.
+If the hours change, also update the `openingHoursSpecification` block in
+`index.html` so Google gets the same hours.
 
-That's it — no code changes needed. The gallery finds every image in that
-folder automatically, up to 100 photos, sorted by filename. To control the
-order they appear in, name files with a number prefix, e.g. `01-honda.jpg`,
-`02-truck.jpg`.
+## Gallery photos
 
-To remove a photo, just delete the file from that folder.
+Drop photos (.jpg, .jpeg, .png, .webp) into `src/assets/gallery/`. No code
+changes needed. Full size phone photos are fine: they get resized and turned
+into small WebP files when the site builds. Up to 100 photos, sorted by
+filename, so name them `01-civic-bumper.jpg`, `02-f150-door.jpg` and so on to
+control the order.
 
-### Swap in real reviews
-Right now `src/components/Reviews.jsx` shows placeholder "Sample review"
-cards so it's obvious nothing there is real yet. When you're ready:
+For a better description (it shows when someone taps a photo and it helps
+Google), add the filename to `CAPTIONS` at the top of
+`src/components/Gallery.jsx`.
 
-- **Quick option:** edit the `SAMPLE_REVIEWS` array at the top of that file
-  with real review text.
-- **Better option:** sign up for a free Elfsight or Google Reviews widget,
-  and replace the `<div className="reviews__track">...</div>` block with
-  the embed code they give you. The section title/layout around it can stay
-  as-is.
+## Reviews
 
-### Update hours, phone, address, services
-All in plain text near the top of these files:
-- `src/components/Contact.jsx` — hours, address, phone
-- `src/components/Services.jsx` — services list
-- `src/components/Header.jsx` — phone number in the nav bar
+Real reviews only. `REVIEWS` in `src/components/Reviews.jsx` is empty on
+purpose. While it's empty, the section asks customers to leave a Google
+review instead of showing fake cards.
 
-### Update the contact form recipient
-The form sends to Formspree, which forwards to
-contactus@migshotautosolutions.com. To change the destination email or see
-submissions, log into your Formspree account at formspree.io — the endpoint
-is already wired into `src/components/Contact.jsx`.
+- Copy real Google reviews into the `REVIEWS` array, or
+- Replace the `<ul className="reviews__track">` block with an Elfsight or
+  Google reviews widget embed.
+
+When you have the direct "write a review" link from Google Business Profile,
+put it in `googleListingUrl` in `src/data/shop.js`.
+
+## Quote form
+
+Sends through Formspree to contactus@migshotautosolutions.com. The free plan
+covers 50 submissions a month and does not include file uploads, which is why
+the site asks people to text photos instead. A hidden `_gotcha` field catches
+spam bots.
 
 ## Deploying
 
-See the deployment steps Claude walked through in chat. Short version:
-push this folder to GitHub, connect the repo in Vercel, then point your
-GoDaddy domain at Vercel's nameservers.
+Pushing to `main` deploys the live site automatically.

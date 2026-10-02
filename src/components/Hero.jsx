@@ -1,28 +1,66 @@
 import "./Hero.css";
-import logo from "../assets/logo/logo-hero.jpg";
+import logoSrcSet from "../assets/hero/migshot-logo-truck.png?w=480;845&format=webp&quality=72&as=srcset";
+import logoSrc from "../assets/hero/migshot-logo-truck.png?w=845&format=webp&quality=72";
+import { SHOP } from "../data/shop";
+import { PhoneIcon, TextIcon, QuoteIcon, PinIcon } from "./icons/Icons";
 
 function Hero() {
   return (
     <section id="top" className="hero">
       <div className="hero__glow" aria-hidden="true" />
       <div className="container hero__inner">
-        <img src={logo} alt="Migshot Auto Solutions" className="hero__logo" />
-        <p className="hero__tagline">
-          We make your paint ideas into a reality.
-        </p>
+        <img
+          src={logoSrc}
+          srcSet={logoSrcSet}
+          sizes="(max-width: 860px) 100vw, 760px"
+          width="845"
+          height="628"
+          alt="Migshot Auto Solutions logo: a custom painted blue pickup with purple and orange flames"
+          className="hero__logo"
+          fetchPriority="high"
+          decoding="async"
+        />
+
+        <h1 className="hero__title">
+          Auto Body, Collision &amp; Custom Paint in Philadelphia
+        </h1>
+        <p className="hero__tagline">We make your paint ideas into a reality.</p>
+
         <p className="hero__sub">
-          Over twenty years of body work and custom paint, built from the
-          ground up on nothing but vision, grit, and a name Miguel put on the
-          door himself. Serving Philadelphia and the tri-state area.
+          Dents, scrapes, cracked bumpers, curb rash, foggy headlights, or a
+          whole new color. Insurance claims welcome and towing available.
         </p>
+
         <div className="hero__actions">
-          <a href="tel:2158331530" className="btn btn--primary">
-            Call Now: 215-833-1530
+          <a href={SHOP.phoneHref} className="btn btn--primary hero__btn">
+            <PhoneIcon size={20} />
+            Call {SHOP.phoneDisplay}
           </a>
-          <a href="#contact" className="btn btn--outline">
-            Get a Free Quote
+          <a href={SHOP.smsHref} className="btn btn--outline hero__btn">
+            <TextIcon size={20} />
+            Text Us Photos
+          </a>
+          <a href="#contact" className="btn btn--ghost hero__btn">
+            <QuoteIcon size={20} />
+            Free Quote
           </a>
         </div>
+
+        <ul className="hero__facts">
+          <li>20+ years experience</li>
+          <li>Insurance work</li>
+          <li>Towing available</li>
+        </ul>
+
+        <a
+          className="hero__address"
+          href={SHOP.directionsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <PinIcon size={18} />
+          {SHOP.street}, {SHOP.cityLine}
+        </a>
       </div>
     </section>
   );

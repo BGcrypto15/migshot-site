@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: var(--space-2xl) 0 var(--space-2xl);
+  padding: var(--space-xs) 0 var(--space-xl);
   text-align: center;
 }
 
@@ -11,11 +11,11 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(
-      ellipse 80% 60% at 50% 110%,
-      rgba(255, 90, 31, 0.35) 0%,
-      rgba(196, 23, 124, 0.18) 45%,
-      transparent 75%
-    );
+    ellipse 80% 55% at 50% 105%,
+    rgba(255, 90, 31, 0.3) 0%,
+    rgba(196, 23, 124, 0.16) 45%,
+    transparent 75%
+  );
   pointer-events: none;
 }
 
@@ -26,35 +26,38 @@
   align-items: center;
 }
 
+/* Big logo, sitting right under the header. On short laptop screens it
+   shrinks just enough that the buttons still show without scrolling. */
 .hero__logo {
-  width: min(560px, 90vw);
-  margin-bottom: var(--space-md);
+  width: min(760px, 100%, calc((100svh - var(--header-h) - 330px) * 1.345));
+  min-width: min(100%, 420px);
+  height: auto;
+  margin-bottom: var(--space-sm);
+}
+
+.hero__title {
+  font-size: clamp(1.7rem, 6.4vw, 2.6rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  max-width: 26ch;
+  margin-bottom: 0.35rem;
 }
 
 .hero__tagline {
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 4.4vw, var(--text-xl));
   letter-spacing: 0.5px;
-  margin-bottom: var(--space-sm);
-  /* Fallback: always-visible solid color if gradient text isn't supported */
   color: var(--color-accent);
-}
-
-@supports (background-clip: text) or (-webkit-background-clip: text) {
-  .hero__tagline {
-    background: var(--gradient-flame);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-  }
+  text-shadow: var(--glow-accent);
+  margin-bottom: var(--space-sm);
 }
 
 .hero__sub {
   max-width: 620px;
   color: var(--color-text-muted);
   font-size: var(--text-lg);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .hero__actions {
@@ -62,40 +65,80 @@
   gap: var(--space-sm);
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
 }
 
-.btn {
-  display: inline-block;
-  padding: 0.9rem 1.75rem;
-  border-radius: var(--radius-sm);
-  font-weight: 700;
+.hero__facts {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  margin-top: var(--space-md);
   font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  transition: transform var(--duration-fast) var(--ease-standard),
-    background var(--duration-fast) var(--ease-standard);
 }
 
-.btn--primary {
-  background: var(--gradient-flame);
-  color: #fff;
+.hero__facts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
 }
 
-.btn--primary:hover {
-  transform: translateY(-2px);
+.hero__facts li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px rgba(255, 90, 31, 0.8);
 }
 
-.btn--outline {
-  border: 2px solid var(--color-accent);
+.hero__address {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: var(--tap);
+  margin-top: var(--space-xs);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 4px;
+}
+
+.hero__address:hover {
   color: var(--color-text);
 }
 
-.btn--outline:hover {
-  background: rgba(255, 90, 31, 0.1);
+@media (max-width: 600px) {
+  .hero__logo {
+    width: calc(100% + 2 * var(--space-sm));
+    max-width: none;
+    min-width: 0;
+    margin: 0 calc(-1 * var(--space-sm)) var(--space-xs);
+  }
+
+  .hero__sub {
+    font-size: var(--text-base);
+  }
+
+  /* Stack the three buttons full width so they're easy to hit with a thumb */
+  .hero__actions {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .hero__btn {
+    width: 100%;
+  }
 }
 
-@media (max-width: 600px) {
-  .hero__tagline {
-    font-size: var(--text-xl);
+@media (min-width: 601px) and (max-width: 860px) {
+  .hero__logo {
+    width: min(640px, 100%);
   }
 }

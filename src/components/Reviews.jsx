@@ -1,45 +1,55 @@
 import "./Reviews.css";
+import { SHOP } from "../data/shop";
+import { StarIcon } from "./icons/Icons";
 
-// PLACEHOLDER CONTENT. These are sample cards, not real customer reviews.
-// Swap this block out for an Elfsight or Google Reviews embed widget later;
-// the section wrapper and layout stay the same either way.
-const SAMPLE_REVIEWS = [
-  {
-    name: "Sample Customer",
-    text: "This is a placeholder review. Real customer feedback will go here once we start collecting it.",
-    stars: 5,
-  },
-  {
-    name: "Sample Customer",
-    text: "Another placeholder card. Swap these out for real reviews or drop in a Google/Elfsight widget.",
-    stars: 5,
-  },
-  {
-    name: "Sample Customer",
-    text: "Layout is ready for a live review feed. This text is just holding the space for now.",
-    stars: 5,
-  },
-];
+// REAL REVIEWS ONLY. Leave this empty until customers actually leave them.
+// While it's empty the section shows a "leave us a review" panel instead of
+// fake cards. To add one, copy a real Google review in like this:
+//   { name: "First name + last initial", text: "What they wrote", stars: 5 },
+// Or drop an Elfsight / Google reviews widget in place of the
+// <ul className="reviews__track"> block below. The section around it stays.
+const REVIEWS = [];
 
 function Reviews() {
   return (
     <section id="reviews" className="reviews section">
       <div className="container">
         <p className="eyebrow glow-text">Reviews</p>
-        <h2>What people are saying</h2>
-        <p className="reviews__note">
-          Sample content below. Real reviews coming soon.
-        </p>
-        <div className="reviews__track">
-          {SAMPLE_REVIEWS.map((r, i) => (
-            <div className="review-card" key={i}>
-              <span className="review-card__badge">Sample review</span>
-              <div className="review-card__stars">{"★".repeat(r.stars)}</div>
-              <p>{r.text}</p>
-              <span className="review-card__name">{r.name}</span>
+        <h2>What customers say</h2>
+
+        {REVIEWS.length > 0 ? (
+          <ul className="reviews__track">
+            {REVIEWS.map((r, i) => (
+              <li className="review-card" key={i}>
+                <div className="review-card__stars" aria-label={`${r.stars} out of 5 stars`}>
+                  {"★".repeat(r.stars)}
+                </div>
+                <p>{r.text}</p>
+                <span className="review-card__name">{r.name}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="reviews__empty">
+            <StarIcon size={30} className="reviews__empty-icon" />
+            <div>
+              <h3>New name on the sign. Reviews are just getting started.</h3>
+              <p>
+                Migshot Auto Solutions opened under Miguel&rsquo;s own name, so
+                the Google page is brand new. If we&rsquo;ve worked on your
+                car, a quick review helps the next person find us.
+              </p>
+              <a
+                className="btn btn--outline"
+                href={SHOP.googleListingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Leave a Google review
+              </a>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
