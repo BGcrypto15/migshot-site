@@ -1,29 +1,10 @@
 import "./About.css";
-import artSrcSet from "../assets/about/miguel-artwork.png?w=380;680&format=webp&quality=62&as=srcset";
-import artSrc from "../assets/about/miguel-artwork.png?w=680&format=webp&quality=62";
 import { SHOP } from "../data/shop";
 
 function About() {
   return (
     <section id="about" className="about section">
-      <div className="container about__grid">
-        <figure className="about__art">
-          <img
-            src={artSrc}
-            srcSet={artSrcSet}
-            sizes="(max-width: 860px) 380px, 440px"
-            width="680"
-            height="816"
-            loading="lazy"
-            decoding="async"
-            alt="Painted portrait of Miguel Rodriguez with the Puerto Rican flag, a lowered pickup and a sportbike"
-          />
-          <figcaption className="about__stat">
-            <span className="about__stat-number">20+</span>
-            <span className="about__stat-label">Years doing body work and paint</span>
-          </figcaption>
-        </figure>
-
+      <div className="container about__inner">
         <div className="about__copy">
           <p className="eyebrow glow-text">Meet Miguel</p>
           <h2>20+ years in the booth</h2>
@@ -43,6 +24,9 @@ function About() {
             dented door or a whole fleet of work vans, you get the same work
             and the same respect.
           </p>
+        </div>
+
+        <div className="about__aside">
           <figure className="about__quote">
             <blockquote>
               <p>&ldquo;The best car painter I&rsquo;ve ever seen.&rdquo;</p>
