@@ -25,25 +25,32 @@ function About() {
         </figure>
 
         <div className="about__copy">
-          <p className="eyebrow glow-text">The man behind Migshot</p>
-          <h2>Meet Miguel</h2>
+          <p className="eyebrow glow-text">Meet Miguel</p>
+          <h2>20+ years in the booth</h2>
           <p>
             Miguel Rodriguez has been doing body work and paint for more than
-            20 years. For a lot of that time, his work rolled out under
-            somebody else&rsquo;s shop name. Migshot Auto Solutions is his own.
+            20 years. Collision repairs, full resprays, custom colors, work
+            trucks, lowriders, sportbikes.
           </p>
           <p>
-            Having his own shop means every job gets done his way. Take the
-            time on the prep work nobody sees, get the color right, and
-            don&rsquo;t hand the keys back until the car looks the way it
-            should.
+            Ask his customers and they&rsquo;ll tell you the rest. He&rsquo;s
+            straight with you about what your car needs. His prices are fair.
+            He finishes when he says he will. And he makes the whole thing
+            easy, insurance included.
           </p>
           <p>
-            Daily drivers, work trucks, lowriders, sportbikes. A scraped
-            bumper gets the same attention as a full custom paint job. Got an
-            idea for your ride? Bring it by and he&rsquo;ll tell you straight
-            what it takes.
+            Miguel built Migshot on doing right by people. One car with a
+            dented door or a whole fleet of work vans, you get the same work
+            and the same respect.
           </p>
+          <figure className="about__quote">
+            <blockquote>
+              <p>&ldquo;The best car painter I&rsquo;ve ever seen.&rdquo;</p>
+            </blockquote>
+            <figcaption>
+              Dawill S., Google review (translated from Spanish)
+            </figcaption>
+          </figure>
           <a href={SHOP.smsHref} className="btn btn--outline about__cta">
             Text Miguel about your car
           </a>

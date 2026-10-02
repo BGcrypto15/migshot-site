@@ -11,6 +11,7 @@ function Footer() {
             {SHOP.street}, {SHOP.cityLine}
           </p>
           <p>Mon to Fri 9 AM to 5 PM &middot; Sat 9 AM to 1 PM &middot; Sun closed</p>
+          <p>Serving Philadelphia and the tri-state area. Fleet accounts welcome.</p>
         </div>
         <div className="footer__links">
           <a href={SHOP.phoneHref}>{SHOP.phoneDisplay}</a>

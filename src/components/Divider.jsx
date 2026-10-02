@@ -1,18 +1,46 @@
+import { useEffect, useRef, useState } from "react";
 import "./Divider.css";
-import SprayCanIcon from "./icons/SprayCanIcon";
+import SprayGun from "./icons/SprayGun";
 
-// Car-themed section divider: a spray-can glyph glowing in the accent color,
-// with a tire-tread tick pattern trailing off on each side. Built with plain
-// CSS (repeating-gradient), not SVG viewBox math, so it never stretches or
-// distorts at any screen width.
+// Section divider: a gloved hand with a paint gun sweeps across and lays down
+// a sharp two-tone pinstripe when it scrolls into view. With reduced motion
+// turned on (or no IntersectionObserver), it just shows the finished stripe.
 function Divider() {
+  const ref = useRef(null);
+  const [painted, setPainted] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (!el || reduce || !("IntersectionObserver" in window)) {
+      setPainted(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPainted(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.6 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div className="divider container" aria-hidden="true">
-      <span className="divider__line" />
-      <span className="divider__icon">
-        <SprayCanIcon size={26} />
-      </span>
-      <span className="divider__line" />
+      <div ref={ref} className={`divider__stage ${painted ? "is-painted" : ""}`}>
+        <div className="divider__stripe">
+          <span className="divider__line divider__line--main" />
+          <span className="divider__line divider__line--fine" />
+        </div>
+        <div className="divider__rig">
+          <span className="divider__mist" />
+          <SprayGun className="divider__gun" />
+        </div>
+      </div>
     </div>
   );
 }

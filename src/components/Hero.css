@@ -40,7 +40,27 @@
   font-weight: 800;
   text-transform: uppercase;
   max-width: 26ch;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.6rem;
+}
+
+.hero__where {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.8rem, 3.2vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--color-text-muted);
+}
+
+.hero__facts a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  margin: -0.6rem 0;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 4px;
 }
 
 .hero__tagline {

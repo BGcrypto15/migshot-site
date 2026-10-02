@@ -92,6 +92,59 @@
   border-color: var(--color-accent);
 }
 
+/* "This is for: My vehicle / Company fleet" switch */
+.contact__mode {
+  border: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border: 1px solid #3a3a3a;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.contact__mode legend {
+  float: left;
+  grid-column: 1 / -1;
+  width: 100%;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  padding: 0.6rem 0.9rem 0;
+  color: var(--color-text-muted);
+}
+
+.contact__form .contact__mode-opt {
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  margin: 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.contact__mode-opt input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.contact__form .contact__mode-opt.is-on {
+  background: var(--gradient-flame-btn);
+  color: #fff;
+}
+
+.contact__mode-opt:has(input:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 .contact__radios {
   border: none;
   display: flex;

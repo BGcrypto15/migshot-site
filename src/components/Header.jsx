@@ -6,6 +6,7 @@ import { PhoneIcon } from "./icons/Icons";
 
 const NAV_LINKS = [
   { href: "#services", label: "Services" },
+  { href: "#fleet", label: "Fleet" },
   { href: "#reviews", label: "Reviews" },
   { href: "#gallery", label: "Our Work" },
   { href: "#about", label: "About" },

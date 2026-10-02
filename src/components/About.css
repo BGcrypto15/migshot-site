@@ -62,6 +62,34 @@
   max-width: 58ch;
 }
 
+/* Pull quote from a real Google review */
+.about__quote {
+  margin: var(--space-md) 0;
+  padding-left: var(--space-md);
+  border-left: 3px solid var(--color-accent);
+}
+
+.about__copy .about__quote blockquote p {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  line-height: 1.1;
+  color: var(--color-text);
+  margin-bottom: 0.35rem;
+}
+
+.about__quote figcaption {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.about__quote a {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .about__cta {
   margin-top: var(--space-xs);
 }

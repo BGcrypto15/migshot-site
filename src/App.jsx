@@ -7,6 +7,7 @@ import Gallery from "./components/Gallery";
 import About from "./components/About";
 import Reviews from "./components/Reviews";
 import Contact from "./components/Contact";
+import Fleet from "./components/Fleet";
 import Footer from "./components/Footer";
 import Divider from "./components/Divider";
 import MobileBar from "./components/MobileBar";
@@ -23,7 +24,9 @@ function App() {
         <Process />
         <Gallery />
         <Divider />
+        <Fleet />
         <About />
+        <Divider />
         <Contact />
       </main>
       <Footer />

@@ -61,6 +61,28 @@
   color: var(--color-accent-hover);
 }
 
+.service-card--fleet {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  border-left-color: var(--color-accent-2);
+  background:
+    linear-gradient(100deg, rgba(255, 90, 31, 0.1), rgba(196, 23, 124, 0.1)),
+    var(--color-surface);
+}
+
+.service-card--fleet p {
+  max-width: 70ch;
+}
+
+.service-card--fleet .service-card__link {
+  align-self: center;
+  flex: 0 0 auto;
+  margin-top: 0;
+}
+
 @media (max-width: 860px) {
   .services__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -71,5 +93,14 @@
   .services__grid {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-sm);
+  }
+
+  .service-card--fleet {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .service-card--fleet .service-card__link {
+    align-self: flex-start;
   }
 }

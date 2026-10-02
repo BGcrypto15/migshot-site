@@ -1,32 +1,126 @@
 .divider {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-lg) var(--space-md);
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
+  overflow: hidden;
+}
+
+/* Painting area. The stripe sits near the bottom, the gun rides above it.
+   Right padding leaves room for the gun to park at the end of the stripe. */
+.divider__stage {
+  --dur: 1.9s;
+  --ease: cubic-bezier(0.5, 0.05, 0.3, 1);
+  --stripe-y: 74px;
+  --gap: 18px;
+  --gun-scale: 1.15;
+  position: relative;
+  height: 96px;
+  margin-right: 104px;
+}
+
+/* ---- The pinstripe ---- */
+.divider__stripe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--stripe-y) - 3px);
+  height: 14px;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--dur) var(--ease);
 }
 
 .divider__line {
-  flex: 1 1 auto;
-  height: 2px;
-  background-image: repeating-linear-gradient(
-    to right,
-    var(--color-accent) 0,
-    var(--color-accent) 8px,
-    transparent 8px,
-    transparent 30px
-  );
-  opacity: 0.55;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: block;
+  /* pointed ends, like a hand-pulled stripe */
+  clip-path: polygon(0 50%, 2.5% 0, 97.5% 0, 100% 50%, 97.5% 100%, 2.5% 100%);
 }
 
-.divider__icon {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1px solid var(--color-border);
-  color: var(--color-accent);
-  filter: drop-shadow(0 0 8px rgba(255, 90, 31, 0.65));
+.divider__line--main {
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff7438 0%, var(--color-accent) 35%, var(--color-accent-2) 100%);
+  filter: drop-shadow(0 0 6px rgba(255, 90, 31, 0.55));
+}
+
+.divider__line--fine {
+  top: 9px;
+  left: 4%;
+  right: 4%;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--color-accent-2), var(--color-accent));
+  opacity: 0.85;
+}
+
+/* ---- Gun + spray ---- */
+/* The rig's left edge is the nozzle tip. It travels the stripe in step
+   with the reveal. */
+.divider__rig {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  transition: left var(--dur) var(--ease);
+}
+
+.divider__gun {
+  position: absolute;
+  /* nozzle tip of the drawing is at (2, 33) in its 96 x 80 box */
+  left: -2px;
+  top: calc(var(--stripe-y) - 33px - var(--gap));
+  width: 96px;
+  height: 80px;
+  transform-origin: 2px 33px;
+  transform: rotate(-62deg) scale(var(--gun-scale));
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
+}
+
+.divider__mist {
+  position: absolute;
+  left: 0;
+  top: calc(var(--stripe-y) - var(--gap));
+  width: 30px;
+  height: calc(var(--gap) + 2px);
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(255, 140, 80, 0.75), rgba(255, 90, 31, 0.25) 55%, transparent 75%);
+  clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
+  opacity: 0;
+}
+
+.divider__stage.is-painted .divider__stripe {
+  clip-path: inset(0 0 0 0);
+}
+
+.divider__stage.is-painted .divider__rig {
+  left: 100%;
+}
+
+.divider__stage.is-painted .divider__mist {
+  animation: divider-spray var(--dur) var(--ease) forwards;
+}
+
+@keyframes divider-spray {
+  0% { opacity: 0; }
+  6% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@media (max-width: 600px) {
+  .divider__stage {
+    --stripe-y: 62px;
+    --gap: 14px;
+    --gun-scale: 0.8;
+    height: 80px;
+    margin-right: 76px;
+  }
+}
+
+/* Reduced motion: finished stripe, gun parked at the end, no spray */
+@media (prefers-reduced-motion: reduce) {
+  .divider__stage .divider__mist {
+    display: none;
+  }
 }

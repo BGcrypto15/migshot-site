@@ -5,6 +5,8 @@ import { SHOP, HOURS, hoursText, openStatus } from "../data/shop";
 import { SERVICES } from "./Services";
 import "./Contact.css";
 
+const FLEET_SIZES = ["1 to 5", "6 to 15", "16 to 50", "More than 50"];
+
 const SERVICE_OPTIONS = [
   ...SERVICES.map((s) => s.title),
   "Custom paint job",
@@ -14,6 +16,8 @@ const SERVICE_OPTIONS = [
 function Contact() {
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
   const [service, setService] = useState("");
+  const [mode, setMode] = useState("personal"); // personal | fleet
+  const fleet = mode === "fleet";
   const [shopStatus, setShopStatus] = useState(null);
 
   useEffect(() => {
@@ -23,8 +27,16 @@ function Contact() {
   }, []);
 
   // A service card's "Get a quote" link preselects that service here.
+  // The fleet section's button switches the form to fleet mode.
   useEffect(() => {
-    const onPick = (e) => setService(e.detail);
+    const onPick = (e) => {
+      if (e.detail === "__fleet__") {
+        setMode("fleet");
+      } else {
+        setMode("personal");
+        setService(e.detail);
+      }
+    };
     window.addEventListener("migshot:service", onPick);
     return () => window.removeEventListener("migshot:service", onPick);
   }, []);
@@ -59,24 +71,67 @@ function Contact() {
     <section id="contact" className="contact section">
       <div className="container">
         <p className="eyebrow glow-text">Free quote</p>
-        <h2>Tell us what happened</h2>
-        <p className="section-lead">
-          Fastest way: text a few photos of the damage to{" "}
-          <a className="contact__inline" href={SHOP.smsHref}>{SHOP.phoneDisplay}</a>.
-          Or fill this out and we&rsquo;ll get back to you.
-        </p>
+        <h2>{fleet ? "Tell us about your fleet" : "Tell us what happened"}</h2>
+        {fleet ? (
+          <p className="section-lead">
+            Fill this out and we&rsquo;ll get back to you to talk through what
+            your vehicles need. Rather talk now? Call{" "}
+            <a className="contact__inline" href={SHOP.phoneHref}>{SHOP.phoneDisplay}</a>.
+          </p>
+        ) : (
+          <p className="section-lead">
+            Fastest way: text a few photos of the damage to{" "}
+            <a className="contact__inline" href={SHOP.smsHref}>{SHOP.phoneDisplay}</a>.
+            Or fill this out and we&rsquo;ll get back to you.
+          </p>
+        )}
 
         <div className="contact__grid">
           <form className="contact__form" onSubmit={handleSubmit}>
-            <input type="hidden" name="_subject" value="New quote request from the website" />
+            <input
+              type="hidden"
+              name="_subject"
+              value={fleet ? "New FLEET inquiry from the website" : "New quote request from the website"}
+            />
             {/* Spam trap. Real people never see or fill this. */}
             <div className="visually-hidden" aria-hidden="true">
               <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" />
             </div>
 
+            <fieldset className="contact__mode">
+              <legend>This is for</legend>
+              <label className={`contact__mode-opt ${!fleet ? "is-on" : ""}`}>
+                <input
+                  type="radio"
+                  name="inquiry_type"
+                  value="Personal vehicle"
+                  checked={!fleet}
+                  onChange={() => setMode("personal")}
+                />
+                <span>My vehicle</span>
+              </label>
+              <label className={`contact__mode-opt ${fleet ? "is-on" : ""}`}>
+                <input
+                  type="radio"
+                  name="inquiry_type"
+                  value="Fleet / business"
+                  checked={fleet}
+                  onChange={() => setMode("fleet")}
+                />
+                <span>Company fleet</span>
+              </label>
+            </fieldset>
+
+            {fleet && (
+              <label>
+                <span>Company name <span className="req">*</span></span>
+                <input type="text" name="company" autoComplete="organization" required />
+              </label>
+            )}
+
             <div className="contact__row">
               <label>
-                <span>Name <span className="req">*</span></span>
+                <span>{fleet ? "Your name" : "Name"} <span className="req">*</span></span>
                 <input type="text" name="name" autoComplete="name" required />
               </label>
               <label>
@@ -96,6 +151,24 @@ function Contact() {
               <input type="email" name="email" autoComplete="email" />
             </label>
 
+            {fleet ? (
+              <div className="contact__row">
+                <label>
+                  How many vehicles?
+                  <select name="fleet_size" defaultValue="">
+                    <option value="">Pick one</option>
+                    {FLEET_SIZES.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  What kind of vehicles?
+                  <input type="text" name="vehicle_types" placeholder="Transit vans, F-150s" />
+                </label>
+              </div>
+            ) : (
+            <>
             <div className="contact__row">
               <label>
                 Year, make &amp; model
@@ -125,14 +198,23 @@ function Contact() {
                 </label>
               ))}
             </fieldset>
+            </>
+            )}
 
             <label>
-              <span>What happened? <span className="req">*</span></span>
+              <span>
+                {fleet ? "What does your fleet need?" : "What happened?"}{" "}
+                <span className="req">*</span>
+              </span>
               <textarea
                 name="message"
                 rows="4"
                 required
-                placeholder="Where's the damage, how did it happen, anything else we should know."
+                placeholder={
+                  fleet
+                    ? "Damage you need fixed now, ongoing repairs, repaints in company colors, how you'd like billing set up."
+                    : "Where's the damage, how did it happen, anything else we should know."
+                }
               />
             </label>
 
@@ -141,7 +223,11 @@ function Contact() {
               className="btn btn--primary contact__submit"
               disabled={status === "sending"}
             >
-              {status === "sending" ? "Sending..." : "Send my quote request"}
+              {status === "sending"
+                ? "Sending..."
+                : fleet
+                  ? "Send my fleet inquiry"
+                  : "Send my quote request"}
             </button>
 
             <p className="contact__photo-tip">

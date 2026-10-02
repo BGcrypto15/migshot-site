@@ -1,0 +1,123 @@
+.fleet__panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--space-xl);
+  align-items: center;
+  padding: var(--space-xl);
+  background:
+    radial-gradient(ellipse 70% 90% at 0% 0%, rgba(255, 90, 31, 0.12), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 100% 100%, rgba(196, 23, 124, 0.12), transparent 60%),
+    var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* pinstripe accent along the top edge, matching the divider */
+.fleet__panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-2));
+}
+
+.fleet__intro h2 {
+  max-width: 18ch;
+}
+
+.fleet__where {
+  margin-top: var(--space-sm);
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+
+.fleet__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.fleet__offers {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+.fleet-offer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  background: rgba(3, 3, 3, 0.55);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.fleet-offer__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--color-accent);
+  border: 1px solid rgba(255, 90, 31, 0.45);
+  background: rgba(255, 90, 31, 0.08);
+}
+
+.fleet-offer h3 {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.25;
+  margin-bottom: 0.25rem;
+}
+
+.fleet-offer p {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 1024px) {
+  .fleet__panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .fleet__intro h2 {
+    max-width: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .fleet__panel {
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  .fleet__offers {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-sm);
+  }
+
+  .fleet-offer {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .fleet-offer__icon {
+    flex: 0 0 auto;
+  }
+
+  .fleet__actions .btn {
+    width: 100%;
+  }
+}

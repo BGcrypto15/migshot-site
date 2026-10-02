@@ -52,6 +52,19 @@ function Services() {
               </a>
             </li>
           ))}
+          <li className="service-card service-card--fleet">
+            <div>
+              <h3>Fleet Services</h3>
+              <p>
+                Vans, trucks and company vehicles for businesses across the
+                tri-state area. Priority scheduling, one bill to your company,
+                and repaints in your company colors.
+              </p>
+            </div>
+            <a href="#fleet" className="service-card__link">
+              See fleet services
+            </a>
+          </li>
         </ul>
       </div>
     </section>

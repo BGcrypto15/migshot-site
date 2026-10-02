@@ -24,7 +24,8 @@ function Hero() {
         />
 
         <h1 className="hero__title">
-          Auto Body, Collision &amp; Custom Paint in Philadelphia
+          Auto Body, Paint &amp; Fleet Repair
+          <span className="hero__where">Philadelphia &amp; the Tri-State Area</span>
         </h1>
         <p className="hero__tagline">We make your paint ideas into a reality.</p>
 
@@ -40,8 +41,9 @@ function Hero() {
         )}
 
         <p className="hero__sub">
-          Dents, scrapes, cracked bumpers, curb rash, foggy headlights, or a
-          whole new color. Insurance claims welcome and towing available.
+          Collision damage, dents, cracked bumpers, curb rash, foggy
+          headlights, or a whole new color. Insurance claims and fleet
+          accounts welcome.
         </p>
 
         <div className="hero__actions">
@@ -62,6 +64,9 @@ function Hero() {
         <ul className="hero__facts">
           <li>20+ years experience</li>
           <li>Insurance work</li>
+          <li>
+            <a href="#fleet">Fleet accounts</a>
+          </li>
           <li>Towing available</li>
         </ul>
 
