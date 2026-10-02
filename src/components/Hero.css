@@ -94,7 +94,6 @@
   align-items: center;
   justify-content: center;
   gap: 0.2rem 0.5rem;
-  min-height: var(--tap);
   margin: -0.4rem 0 0.4rem;
   color: var(--color-text-muted);
   font-size: var(--text-sm);
@@ -110,9 +109,20 @@
   letter-spacing: 2px;
 }
 
-.hero__rating:hover span:last-child {
+/* "Google reviews" opens his Google listing. Padded to a 44px tap area. */
+.hero__rating a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--color-text);
+  font-weight: 600;
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 4px;
+}
+
+.hero__rating a:hover {
+  color: var(--color-accent);
 }
 
 .hero__facts {

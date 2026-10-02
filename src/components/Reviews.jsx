@@ -38,7 +38,10 @@ function Reviews() {
               <span className="reviews__summary-stars" aria-hidden="true">
                 {"★".repeat(Math.round(Number(summary.average)))}
               </span>
-              <strong>{summary.average}</strong> from {summary.count} Google reviews
+              <strong>{summary.average}</strong> from{" "}
+              <a href={SHOP.googleListingUrl} target="_blank" rel="noopener noreferrer">
+                Google reviews
+              </a>
             </p>
 
             <ul className="reviews__track">

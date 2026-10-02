@@ -118,13 +118,14 @@ button {
   }
 }
 
+/* Dividers sit between every section, so sections keep moderate padding */
 .section {
-  padding: var(--space-2xl) 0;
+  padding: var(--space-xl) 0;
 }
 
 @media (max-width: 600px) {
   .section {
-    padding: var(--space-xl) 0;
+    padding: var(--space-lg) 0;
   }
 }
 

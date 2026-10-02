@@ -56,7 +56,8 @@ panel. A Featurable or Elfsight widget could replace the
 `<ul className="reviews__track">` block later.
 
 When you have the direct "write a review" link from Google Business Profile,
-put it in `googleListingUrl` in `src/data/shop.js`.
+put it in `googleListingUrl` in `src/data/shop.js`. The "5.0 from Google
+reviews" link at the top of the page uses the same URL.
 
 ## Fleet
 

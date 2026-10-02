@@ -30,14 +30,17 @@ function Hero() {
         <p className="hero__tagline">We make your paint ideas into a reality.</p>
 
         {rating && (
-          <a href="#reviews" className="hero__rating">
+          <p className="hero__rating">
             <span className="hero__rating-stars" aria-hidden="true">
               {"★".repeat(Math.round(Number(rating.average)))}
             </span>
             <span>
-              <strong>{rating.average}</strong> from {rating.count} Google reviews
+              <strong>{rating.average}</strong> from{" "}
+              <a href={SHOP.googleListingUrl} target="_blank" rel="noopener noreferrer">
+                Google reviews
+              </a>
             </span>
-          </a>
+          </p>
         )}
 
         <p className="hero__sub">

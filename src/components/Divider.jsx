@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import "./Divider.css";
 import SprayGun from "./icons/SprayGun";
 
-// Section divider: a gloved hand with a paint gun sweeps across and lays down
-// a sharp two-tone pinstripe when it scrolls into view. With reduced motion
-// turned on (or no IntersectionObserver), it just shows the finished stripe.
+// Full-width section divider. When it scrolls into view a gloved hand with a
+// paint gun makes three passes: left to right painting the main stripe, right
+// to left laying the thin second line, then left to right with a clear-coat
+// shine before it exits. With reduced motion (or no IntersectionObserver) it
+// just shows the finished stripe.
 function Divider() {
   const ref = useRef(null);
   const [painted, setPainted] = useState(false);
@@ -23,17 +25,19 @@ function Divider() {
           io.disconnect();
         }
       },
-      { threshold: 0.6 }
+      { threshold: 0.7 }
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
   return (
-    <div className="divider container" aria-hidden="true">
+    <div className="divider" aria-hidden="true">
       <div ref={ref} className={`divider__stage ${painted ? "is-painted" : ""}`}>
         <div className="divider__stripe">
-          <span className="divider__line divider__line--main" />
+          <span className="divider__line divider__line--main">
+            <span className="divider__sheen" />
+          </span>
           <span className="divider__line divider__line--fine" />
         </div>
         <div className="divider__rig">

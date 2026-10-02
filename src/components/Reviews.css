@@ -16,6 +16,17 @@
   font-size: var(--text-lg);
 }
 
+.reviews__summary a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 4px;
+}
+
 .reviews__summary-stars {
   color: #fbbc04;
   font-size: var(--text-lg);

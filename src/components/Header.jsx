@@ -29,6 +29,10 @@ function Header() {
       <div className="container header__inner">
         <a href="#top" className="header__brand" aria-label="Migshot Auto Solutions, back to top">
           <img src={logo} alt="" width="200" height="169" />
+          <span className="header__wordmark" aria-hidden="true">
+            <span className="header__wordmark-script">Migshot</span>
+            <span className="header__wordmark-sub">Auto Solutions</span>
+          </span>
         </a>
 
         <nav
@@ -44,7 +48,7 @@ function Header() {
         </nav>
 
         <div className="header__actions">
-          <a href={SHOP.phoneHref} className="header__call">
+          <a href={SHOP.phoneHref} className="header__call" aria-label={`Call ${SHOP.phoneDisplay}`}>
             <PhoneIcon size={18} />
             <span className="header__call-num">{SHOP.phoneDisplay}</span>
             <span className="header__call-short">Call</span>

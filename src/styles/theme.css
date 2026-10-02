@@ -29,6 +29,7 @@
      better than the more generic Anton/Bebas look most sites default to. */
   /* Self-hosted (npm @fontsource-variable), no third-party font request. */
   --font-display: "Big Shoulders Display Variable", "Arial Narrow", sans-serif;
+  --font-script: "Mr Dafoe", "Brush Script MT", cursive;
   --font-body: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* ---- Glow (used sparingly, on section labels/headings only) ----
