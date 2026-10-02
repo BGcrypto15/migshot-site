@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import "./Gallery.css";
 import { ChevronIcon, CloseIcon } from "./icons/Icons";
+import InstagramIcon from "./icons/InstagramIcon";
+import { SHOP } from "../data/shop";
 
 // Auto-loads every image dropped into src/assets/gallery. No code changes
 // needed to add or remove photos. Big phone photos are fine: they get resized
@@ -96,6 +98,24 @@ function Gallery() {
           ))}
         </ul>
         <p className="gallery__hint">Tap a photo to see it bigger.</p>
+
+        <div className="gallery__insta">
+          <span className="gallery__insta-icon">
+            <InstagramIcon size={26} />
+          </span>
+          <div className="gallery__insta-text">
+            <h3>See more work</h3>
+            <p>More photos on the shop's Instagram.</p>
+          </div>
+          <a
+            className="btn btn--outline gallery__insta-btn"
+            href={SHOP.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {SHOP.instagramHandle}
+          </a>
+        </div>
       </div>
 
       <dialog

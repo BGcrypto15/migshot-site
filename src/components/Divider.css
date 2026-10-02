@@ -11,6 +11,8 @@
   --stripe-y: 62px;
   --gap: 12px;
   --gun-scale: 0.82;
+  /* where the gun rests after the last pass, fully on screen */
+  --park: calc(100% - 74px);
   position: relative;
   height: 84px;
 }
@@ -116,7 +118,7 @@
   0% { left: 0%; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   34% { left: 100%; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
   66% { left: 0%; animation-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); }
-  100% { left: 112%; }
+  100% { left: var(--park); }
 }
 
 @keyframes divider-main {
@@ -148,6 +150,7 @@
     --stripe-y: 52px;
     --gap: 10px;
     --gun-scale: 0.62;
+    --park: calc(100% - 56px);
     --dur: 4s;
     height: 70px;
   }
@@ -162,9 +165,13 @@
   }
 }
 
-/* Reduced motion: finished stripe only, no gun */
+/* Reduced motion: finished stripe with the gun resting at the end, no spray */
 @media (prefers-reduced-motion: reduce) {
   .divider__rig {
+    left: var(--park);
+  }
+
+  .divider__mist {
     display: none;
   }
 

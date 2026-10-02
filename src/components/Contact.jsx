@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import InstagramIcon from "./icons/InstagramIcon";
 import { PhoneIcon, TextIcon, PinIcon, ClockIcon, CameraIcon } from "./icons/Icons";
 import { SHOP, HOURS, hoursText, openStatus } from "../data/shop";
 import { SERVICES } from "./Services";
@@ -309,17 +308,6 @@ function Contact() {
               </ul>
             </div>
 
-            <div className="contact__block">
-              <h3><InstagramIcon size={20} /> See more work</h3>
-              <a
-                className="contact__link"
-                href={SHOP.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {SHOP.instagramHandle} on Instagram &rsaquo;
-              </a>
-            </div>
           </div>
         </div>
       </div>

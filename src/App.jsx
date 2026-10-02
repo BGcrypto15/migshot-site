@@ -20,13 +20,11 @@ function App() {
         <Hero />
         <Divider />
         <Services />
-        <Divider />
         <Fleet />
         <Divider />
         <Reviews />
         <Divider />
         <Process />
-        <Divider />
         <Gallery />
         <Divider />
         <About />

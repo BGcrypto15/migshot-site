@@ -5,8 +5,8 @@ import SprayGun from "./icons/SprayGun";
 // Full-width section divider. When it scrolls into view a gloved hand with a
 // paint gun makes three passes: left to right painting the main stripe, right
 // to left laying the thin second line, then left to right with a clear-coat
-// shine before it exits. With reduced motion (or no IntersectionObserver) it
-// just shows the finished stripe.
+// shine, then rests at the right end. With reduced motion (or no
+// IntersectionObserver) it shows the finished stripe with the gun at rest.
 function Divider() {
   const ref = useRef(null);
   const [painted, setPainted] = useState(false);
