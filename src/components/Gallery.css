@@ -38,9 +38,14 @@
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  padding-bottom: var(--space-sm);
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-accent) transparent;
+  padding-bottom: 4px;
+  /* no visible scrollbar: arrows on desktop, swipe on phones */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.gallery__track::-webkit-scrollbar {
+  display: none;
 }
 
 .gallery__card {
@@ -89,6 +94,7 @@
 }
 
 .gallery__hint {
+  margin-top: var(--space-xs);
   color: var(--color-text-dim);
   font-size: var(--text-sm);
 }
