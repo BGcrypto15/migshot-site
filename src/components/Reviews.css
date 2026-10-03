@@ -1,5 +1,43 @@
+.reviews__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-sm);
+}
+
 .reviews h2 {
   margin-bottom: var(--space-xs);
+}
+
+.reviews__controls {
+  display: flex;
+  gap: var(--space-xs);
+  flex: 0 0 auto;
+  margin-bottom: var(--space-xs);
+}
+
+.reviews__controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    opacity var(--duration-fast) var(--ease-standard);
+}
+
+.reviews__controls button:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.reviews__controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 .reviews__summary {
@@ -33,18 +71,28 @@
   letter-spacing: 2px;
 }
 
-/* Phones: swipeable row. Wider screens: grid. */
+/* Carousel at every width: 3 cards in view on desktop, 2 on tablets,
+   one-and-a-bit on phones. Swipe, scroll, or use the arrows. */
 .reviews__track {
   position: relative; /* keeps screen-reader-only text inside the scroller */
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  align-items: flex-start;
   gap: var(--space-md);
-  align-items: start;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: var(--space-sm);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) transparent;
 }
 
 .review-card {
   position: relative;
+  flex: 0 0 auto;
+  width: calc((100% - 2 * var(--space-md)) / 3);
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
@@ -134,6 +182,15 @@
   font-size: 1.2em;
 }
 
+/* Trim long reviews to 7 lines until "Read more" is tapped */
+.review-card.is-long:not(.is-open) .review-card__text p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  line-clamp: 7;
+  overflow: hidden;
+}
+
 .review-card__more {
   display: none;
   align-self: flex-start;
@@ -158,47 +215,24 @@
   margin-top: var(--space-lg);
 }
 
+.review-card.is-long .review-card__more {
+  display: inline-flex;
+  align-items: center;
+}
+
 @media (max-width: 1024px) {
-  .reviews__track {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .review-card {
+    width: calc((100% - var(--space-md)) / 2);
   }
 }
 
 @media (max-width: 700px) {
   .reviews__track {
-    display: flex;
-    align-items: stretch;
     gap: var(--space-sm);
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    padding-bottom: var(--space-sm);
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-accent) transparent;
-  }
-
-  .reviews__track {
-    align-items: flex-start;
   }
 
   .review-card {
-    flex: 0 0 auto;
     width: 86%;
-    scroll-snap-align: start;
-  }
-
-  /* Trim long reviews to 7 lines until "Read more" is tapped */
-  .review-card.is-long:not(.is-open) .review-card__text p {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 7;
-    line-clamp: 7;
-    overflow: hidden;
-  }
-
-  .review-card.is-long .review-card__more {
-    display: inline-flex;
-    align-items: center;
   }
 
   .reviews__hint {
@@ -207,6 +241,12 @@
 
   .reviews__actions .btn {
     width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews__track {
+    scroll-behavior: auto;
   }
 }
 

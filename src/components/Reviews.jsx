@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./Reviews.css";
 import { SHOP } from "../data/shop";
 import { REVIEWS, reviewSummary } from "../data/reviews";
-import { StarIcon } from "./icons/Icons";
+import { StarIcon, ChevronIcon } from "./icons/Icons";
 
 // Real Google reviews live in src/data/reviews.js. If that list is ever
 // emptied, this section falls back to a "leave us a review" panel instead of
@@ -18,7 +18,7 @@ function Stars({ count }) {
   );
 }
 
-// Long reviews get trimmed on phones with a "Read more" button.
+// Long reviews get trimmed with a "Read more" button so cards stay even.
 const LONG = 220;
 
 function Reviews() {
@@ -26,11 +26,61 @@ function Reviews() {
   const [open, setOpen] = useState({});
   const toggle = (key) => setOpen((o) => ({ ...o, [key]: !o[key] }));
 
+  // Carousel arrows: move one card at a time, disable at either end.
+  const trackRef = useRef(null);
+  const [ends, setEnds] = useState({ start: true, end: false });
+  const updateEnds = useCallback(() => {
+    const t = trackRef.current;
+    if (!t) return;
+    setEnds({
+      start: t.scrollLeft <= 4,
+      end: t.scrollLeft + t.clientWidth >= t.scrollWidth - 4,
+    });
+  }, []);
+  useEffect(() => {
+    updateEnds();
+    window.addEventListener("resize", updateEnds);
+    return () => window.removeEventListener("resize", updateEnds);
+  }, [updateEnds]);
+  const scroll = (dir) => {
+    const t = trackRef.current;
+    if (!t) return;
+    const card = t.querySelector(".review-card");
+    const gap = parseFloat(getComputedStyle(t).columnGap) || 16;
+    const step = card ? card.getBoundingClientRect().width + gap : t.clientWidth;
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    t.scrollBy({ left: dir * step, behavior: reduce ? "auto" : "smooth" });
+  };
+
   return (
     <section id="reviews" className="reviews section">
       <div className="container">
-        <p className="eyebrow glow-text">Reviews</p>
-        <h2>What customers say</h2>
+        <div className="reviews__header">
+          <div>
+            <p className="eyebrow glow-text">Reviews</p>
+            <h2>What customers say</h2>
+          </div>
+          {summary && REVIEWS.length > 1 && (
+            <div className="reviews__controls">
+              <button
+                type="button"
+                aria-label="Previous reviews"
+                onClick={() => scroll(-1)}
+                disabled={ends.start}
+              >
+                <ChevronIcon dir="left" size={22} />
+              </button>
+              <button
+                type="button"
+                aria-label="Next reviews"
+                onClick={() => scroll(1)}
+                disabled={ends.end}
+              >
+                <ChevronIcon dir="right" size={22} />
+              </button>
+            </div>
+          )}
+        </div>
 
         {summary ? (
           <>
@@ -44,7 +94,7 @@ function Reviews() {
               </a>
             </p>
 
-            <ul className="reviews__track">
+            <ul className="reviews__track" ref={trackRef} onScroll={updateEnds}>
               {REVIEWS.map((r) => (
                 <li
                   className={`review-card ${
