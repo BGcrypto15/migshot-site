@@ -83,9 +83,14 @@
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  padding-bottom: var(--space-sm);
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-accent) transparent;
+  padding-bottom: 4px;
+  /* no visible scrollbar: arrows on desktop, swipe on phones */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.reviews__track::-webkit-scrollbar {
+  display: none;
 }
 
 .review-card {
